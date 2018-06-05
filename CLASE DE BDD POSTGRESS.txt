@@ -1,0 +1,45 @@
+// este metodo crea la base de datos
+CREATE DATABASE "Futbol"
+WITH OWNER = "Admin"
+ENCODING = 'UTF8'
+TABLESPACE = pg_default
+LC_COLLATE = 'Spanish_Ecuador.1252'
+LC_CTYPE = 'Spanish_Ecuador.1252'
+CONNECTION LIMIT = -1;
+
+//Aqui creamos la tabla y sus argumentos
+create sequence cancha_sec;
+create table cancha(
+idcancha int NOT NULL default nextval ('cancha_sec')primary key,
+largo int,
+ancho int,
+material varchar(25),
+fechaConstruccion date
+);
+
+//Aqui insertamos valores en als columnas
+INSERT INTO public.cancha(
+	largo, ancho, material, fechaconstruccion)
+	VALUES (110, 50, 'hierro', '2018/12/31');
+	VALUES (90, 45, 'madera', '2016/10/10');
+	VALUES (100, 55, 'cemento', '2015/02/15');
+	VALUES (80, 40, 'Bloque', '2012/01/16');
+	VALUES (125, 70, 'Fibra de vidios', '2017/02/21');
+
+//Aqui creamso columans directamente en la tabla
+-- Column: public.cancha.material
+
+-- ALTER TABLE public.cancha DROP COLUMN material;
+
+ALTER TABLE public.cancha
+    ADD COLUMN color character varying(25) COLLATE pg_catalog."default";
+
+//con esto eliminamos columnas que no sean necesarias
+-- Column: public.cancha.material
+
+-- ALTER TABLE public.cancha DROP COLUMN material;
+
+ALTER TABLE public.cancha
+    DROP COLUMN color 
+//con este select provamos que la tabla este realizando los cambios que realizamos
+select * from cancha
